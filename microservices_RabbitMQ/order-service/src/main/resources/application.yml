@@ -1,8 +1,15 @@
 rabbit:
-  order:
+  exchange:
+    name: exchange
+  stock:
     queue:
-      name: order-service-2023
-    exchange:
-      name: order-exchange
+      name: stock-queue-2023
+
     routing:
-      key: orderExchangeKey2023
+      key: stockExchangeKey2023
+
+  email:
+    queue:
+      name: email-queue-2023
+    routing:
+      key: emailExchangeKey2023

@@ -1,2 +1,6 @@
 server:
   port: 8082
+rabbit:
+  email:
+    queue:
+      name: email-queue-2023

@@ -11,42 +11,59 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-    @Value("${rabbit.order.queue.name}")
-    private String queueName;
+    @Value("${rabbit.stock.queue.name}")
+    private String stockQueueName;
 
-    @Value("${rabbit.order.exchange.name}")
-    private String orderExchange;
+    @Value("${rabbit.exchange.name}")
+    private String exchangeName;
 
-    @Value("${rabbit.order.routing.key}")
+    @Value("${rabbit.stock.routing.key}")
     private String orderRoutingKey;
+
+    @Value("${rabbit.email.queue.name}")
+    private String emailQueueName;
+
+    @Value("${rabbit.email.routing.key}")
+    private String emailRoutingKey;
+
 
     // create queue
     @Bean
-    public Queue queue(){
-        return new Queue(queueName);
+    public Queue queue() {
+        return new Queue(stockQueueName);
+    }
+
+    @Bean
+    public Queue emailQueue() {
+        return new Queue(emailQueueName);
     }
 
     // create exchange
     @Bean
-    public TopicExchange exchange(){
-        return new TopicExchange(orderExchange);
+    public TopicExchange exchange() {
+        return new TopicExchange(exchangeName);
     }
 
     // bind exchange with queue
     @Bean
-    public Binding binding(TopicExchange topicExchange, Queue queue){
-        return BindingBuilder.bind(queue).to(topicExchange).with(orderRoutingKey);
+    public Binding binding() {
+        return BindingBuilder.bind(queue()).to(exchange()).with(orderRoutingKey);
+    }
+
+    @Bean
+    public Binding emailBinding() {
+        return BindingBuilder.bind(emailQueue()).to(exchange()).with(emailRoutingKey);
     }
 
     // message converter
     @Bean
-    public MessageConverter messageConverter(){
+    public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
     // configure RabbitTemplate
     @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory factory){
+    public AmqpTemplate amqpTemplate(ConnectionFactory factory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(factory);
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;

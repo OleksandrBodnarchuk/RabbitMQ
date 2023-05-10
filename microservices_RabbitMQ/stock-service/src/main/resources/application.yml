@@ -2,6 +2,6 @@ server:
   port: 8081
 
 rabbit:
-  order:
+  stock:
     queue:
-      name: order-service-2023
+      name: stock-queue-2023

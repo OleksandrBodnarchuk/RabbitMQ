@@ -9,7 +9,7 @@ import pl.alex.stockservice.dto.OrderEvent;
 @Service
 public class OrderConsumer {
 
-    @RabbitListener(queues = "${rabbit.order.queue.name}")
+    @RabbitListener(queues = "${rabbit.stock.queue.name}")
     public void consume(OrderEvent event){
         log.info("OrderEvent received: {}", event.toString());
         // save to database or do some business logic etc.
