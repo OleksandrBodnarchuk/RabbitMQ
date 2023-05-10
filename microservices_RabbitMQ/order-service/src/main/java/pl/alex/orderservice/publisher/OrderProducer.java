@@ -12,10 +12,10 @@ import pl.alex.orderservice.dto.OrderEvent;
 @RequiredArgsConstructor
 public class OrderProducer {
 
-    @Value("${rabbit.order.exchange.name")
+    @Value("${rabbit.order.exchange.name}")
     private String orderExchange;
 
-    @Value("${rabbit.order.routing.key")
+    @Value("${rabbit.order.routing.key}")
     private String orderRoutingKey;
 
     private final RabbitTemplate rabbitTemplate;

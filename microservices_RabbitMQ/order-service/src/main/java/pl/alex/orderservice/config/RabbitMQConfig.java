@@ -14,10 +14,10 @@ public class RabbitMQConfig {
     @Value("${rabbit.order.queue.name}")
     private String queueName;
 
-    @Value("${rabbit.order.exchange.name")
+    @Value("${rabbit.order.exchange.name}")
     private String orderExchange;
 
-    @Value("${rabbit.order.routing.key")
+    @Value("${rabbit.order.routing.key}")
     private String orderRoutingKey;
 
     // create queue
