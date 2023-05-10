@@ -1,2 +1,7 @@
 server:
   port: 8081
+
+rabbit:
+  order:
+    queue:
+      name: order-service-2023
