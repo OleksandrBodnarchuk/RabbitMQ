@@ -18,11 +18,16 @@ public class OrderProducer {
     @Value("${rabbit.stock.routing.key}")
     private String orderRoutingKey;
 
+    @Value("${rabbit.email.routing.key}")
+    private String emailRoutingKey;
+
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(OrderEvent orderEvent) {
         log.info("Order event sent to => {}", orderEvent.toString());
         rabbitTemplate.convertAndSend(exchangeName, orderRoutingKey, orderEvent);
+        log.info("Email event sent to => {}", "EmailService");
+        rabbitTemplate.convertAndSend(exchangeName, emailRoutingKey, orderEvent);
 
     }
 
