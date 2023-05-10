@@ -1,1 +1,8 @@
-
+rabbit:
+  order:
+    queue:
+      name: order-service-2023
+    exchange:
+      name: order-exchange
+    routing:
+      key: orderExchangeKey2023
